@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"content="IE=edge">
+    <meta name="viewport"content="width-device-width,initial-scale=1.0">
+    <title>COMENTARIOS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+
+<section class="footer">
+
+    <div class="links">
+           
+            <button type="submit" class="btn btn-success w-100">Inicio</button>
+            
+    </div>
+
+
+</section>
+<body class="bg-black text-white">
+
+    <main class="container-fluid">
+        <div class="row my-5">
+             <h1 class="col text-center"><br><b>COMENTARIOS</b></h1>
+        </div>
+        <div class="row justify-content-center py-5">
+
+            <div class="col-6 row justify-content-center h-50 p-5">
+                {% if update %}
+                  <form class="w-75" action="{% url 'update' %}" method="POST">
+                       {% csrf_token %}
+                       <div class="mb-3">
+                            <label for="subject" class="form-label">Nombre</label>
+                            <input type="text" value="{{ update.nombre }}" class="form-control" name="nombre" id="nombre"
+                             aria-describedby="emailHelp">
+                       </div>
+                       <div class="mb-3">
+                            <label for="description" class="form-label">Cometario</label>
+                            <input type="text" name="descripcion" class="form-control"
+                             id="descripcion" value="{{ update.descripcion }}">
+                       </div>
+                       <input type="hidden" name="id" value="{{ update.id }}">
+                       <button type="submit" class="btn btn-primary w-100">Editar</button>
+                  </form>
+                  {% else %}
+                  <form class="w-75" action="{% url 'create_taks' %}" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                         <label for="subject" class="form-label">Nombre</label>
+                         <input type="text" class="form-control" name="nombre" id="nombre"
+                          aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                         <label for="description" class="form-label">Comentario</label>
+                         <input type="text" name="descripcion" class="form-control"
+                          id="descripcion">
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">Crear</button>
+               </form>
+               {% endif %}
+              </div>
+              <div class="w-75 ">
+                {% for taks in taks %}
+                    <div class="card card-body text-black mt-2 d-flex flex-row ">
+                        <div>
+                            <p>{{taks.nombre}}</p>
+                            <p>{{taks.descripcion}}</p>
+                            <a href="{% url 'update_taks' taks.id %}" class="btn btn-primary">Editar</a>
+                            <a href="{% url 'delete_taks' taks.id %}" class="btn btn-danger">Eliminar</a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <h1 class="display-5 text-center fw-bold">No hay tareas nuevas</h1>
+                {% endfor %}
+              </div>
+            </div>
+        </div>
+    </div>
+    </main>
+</body>
+</html>

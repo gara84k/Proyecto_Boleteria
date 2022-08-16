@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "..\\LOGGIN"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "LOGGIN",
+		"liveServer.settings.port": 5501
+	}
+}
